@@ -1,77 +1,53 @@
 # unidad9
-function jugarTorneo() {
-  let victoriasUsuario = 0;
-  let victoriasMaquina = 0;
+let victoriasUsuario = 0;
+let victoriasMaquina = 0;
 
-  // ✅ CORRECCIÓN 1: se cambió || por && para que el bucle se detenga correctamente
-  while (victoriasUsuario < 3 && victoriasMaquina < 3) {
+// El torneo continúa mientras ninguno de los dos haya llegado a 2 victorias
+while (victoriasUsuario < 2 && victoriasMaquina < 2) {
 
-    let jugadaInput = prompt("Elige: Piedra, Papel o Tijera");
+    let jugada = prompt("Elige: Piedra, Papel o Tijera").toLowerCase();
 
-    // Si el usuario cancela el prompt, se salta la ronda
-    if (!jugadaInput) continue;
-
-    // ✅ CORRECCIÓN 2: Normalización estricta con toLowerCase() y trim()
-    let jugada = jugadaInput.trim().toLowerCase();
-
-    // Validación de entrada (bonus de robustez)
-    if (jugada !== "piedra" && jugada !== "papel" && jugada !== "tijera") {
-      alert("Entrada inválida. Escribe: Piedra, Papel o Tijera.");
-      continue;
+    // Validamos que la jugada sea correcta
+    while (jugada !== "piedra" && jugada !== "papel" && jugada !== "tijera") {
+        jugada = prompt("Opción inválida. Elige: Piedra, Papel o Tijera").toLowerCase();
     }
 
+    // La máquina elige al azar
     let azar = Math.random();
+    let jugadaMaquina = "";
 
-    // ✅ Uso de operador ternario para determinar la jugada de la máquina
-    let jugadaMaquina = azar < 0.33 ? "piedra" : azar < 0.66 ? "papel" : "tijera";
+    if (azar < 0.33) {
+        jugadaMaquina = "piedra";
+    } else if (azar < 0.66) {
+        jugadaMaquina = "papel";
+    } else {
+        jugadaMaquina = "tijera";
+    }
 
-    // ✅ CORRECCIÓN 3: Template Literal en lugar de concatenación
+    // Template Literal
     console.log(`La máquina eligió: ${jugadaMaquina}`);
 
-    // ✅ CORRECCIÓN 4: Lógica de victoria + variables acumuladoras
-    let resultadoRonda = "";
-
+    // Determinamos quién gana la ronda
     if (jugada === jugadaMaquina) {
-      resultadoRonda = "Empate";
+        console.log("Empate");
     } else if (
-      (jugada === "piedra" && jugadaMaquina === "tijera") ||
-      (jugada === "papel" && jugadaMaquina === "piedra") ||
-      (jugada === "tijera" && jugadaMaquina === "papel")
+        (jugada === "piedra" && jugadaMaquina === "tijera") ||
+        (jugada === "papel" && jugadaMaquina === "piedra") ||
+        (jugada === "tijera" && jugadaMaquina === "papel")
     ) {
-      resultadoRonda = "Usuario";
-      victoriasUsuario++;
+        victoriasUsuario++;
+        console.log("¡Ganaste esta ronda!");
     } else {
-      resultadoRonda = "Maquina";
-      victoriasMaquina++;
+        victoriasMaquina++;
+        console.log("La máquina ganó esta ronda.");
     }
 
-    // Mensaje de la ronda con Template Literal + ternario anidado
-    console.log(
-      `Tú: ${jugada} | Máquina: ${jugadaMaquina} -> ${
-        resultadoRonda === "Empate"
-          ? "🤝 Empate"
-          : resultadoRonda === "Usuario"
-          ? "🎉 Ganaste la ronda"
-          : "💻 Perdiste la ronda"
-      }`
-    );
-
-    console.log(`Marcador actual -> Usuario: ${victoriasUsuario} | Máquina: ${victoriasMaquina}`);
-  }
-
-  // ✅ CORRECCIÓN 5: Operador ternario para el campeón final
-  const mensajeFinal =
-    victoriasUsuario > victoriasMaquina
-      ? "🏆 ¡Felicidades, ganaste el torneo!"
-      : "💻 La máquina ha ganado el torneo.";
-
-  alert(mensajeFinal);
-  console.log(mensajeFinal);
+    console.log(`Marcador: Usuario ${victoriasUsuario} - Máquina ${victoriasMaquina}`);
 }
 
-// Bucle exterior para reiniciar el torneo completo
-let jugarDeNuevo = true;
-while (jugarDeNuevo) {
-  jugarTorneo();
-  jugarDeNuevo = confirm("¿Deseas volver a jugar?");
-}
+// Operador ternario para anunciar al campeón
+let campeon = victoriasUsuario === 2 ? "¡Ganaste el torneo!" : "¡La máquina ganó el torneo!";
+
+console.log(campeon);
+
+alert(`Fin del torneo. ${campeon}`);
