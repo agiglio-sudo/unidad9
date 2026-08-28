@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    text-align: center;
+    margin: 0;
+    padding: 50px;
+}
+
+.juego {
+    background-color: white;
+    max-width: 600px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+h1 {
+    margin-bottom: 5px;
+}
+
+h2 {
+    color: gray;
+}
+
+.marcador {
+    display: flex;
+    justify-content: space-around;
+    margin: 30px 0;
+}
+
+.marcador div {
+    padding: 15px 40px;
+    border: 2px solid #ddd;
+    border-radius: 15px;
+}
+
+.marcador span {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#mensaje {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 25px;
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 15px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+.resultado {
+    margin: 25px;
+    font-size: 18px;
+}
+
+#reiniciar {
+    margin-top: 10px;
+}
